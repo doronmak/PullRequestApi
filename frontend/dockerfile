@@ -1,0 +1,12 @@
+FROM node:alpine
+WORKDIR /app
+COPY ["package.json", "package-lock.json", "./"]
+RUN npm install --production
+RUN npm install react-scripts@3.4.1 -g --silent
+COPY . ./
+RUN npm install -g serve
+
+RUN npm run build
+EXPOSE 80
+
+CMD ["serve", "-s","build" , "-l","80"]
